@@ -11,18 +11,15 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   name: z.string().min(2, "Digite um nome válido"),
-  email: z.string().email(),
+  email: z.string().email("Digite um e-mail válido"),
   password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
-type SigninProps = {
-  onLogin: () => void;
-};
-
-const Signin = ({ onLogin }: SigninProps) => {
+const Signin = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       name: "",
@@ -144,7 +141,7 @@ const Signin = ({ onLogin }: SigninProps) => {
                 </Field>
               )}
             />
-            <Button className="mt-4 w-full" type="submit">
+            <Button className="mt-4 w-full p-5" type="submit">
               Criar
             </Button>
           </form>
@@ -152,9 +149,9 @@ const Signin = ({ onLogin }: SigninProps) => {
           <div className="mt-5 space-y-5">
             <p className="text-center text-sm">
               Já tem uma conta?
-              <button className="ml-1 text-muted-foreground underline cursor-pointer" onClick={onLogin}>
+              <Link className="ml-1 text-muted-foreground underline cursor-pointer" to="/login">
                 Faça login
-              </button>
+              </Link>
             </p>
           </div>
         </div>
