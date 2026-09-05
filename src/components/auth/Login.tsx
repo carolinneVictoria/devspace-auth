@@ -2,11 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  SiFigma,
   SiGithub,
-  SiInstagram,
-  SiTwitch,
-  SiX,
+  SiGoogle,
 } from "react-icons/si";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -60,7 +57,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-        
+
         <div className="m-auto flex w-full max-w-xs flex-col items-center">
           <p className="mt-4 font-medium text-xl">Log in to Shadcn UI Blocks</p>
 
@@ -77,28 +74,7 @@ const Login = () => {
               size="icon"
               variant="outline"
             >
-              <SiInstagram className="h-[18px]! w-[18px]!" />
-            </Button>
-            <Button
-              className="h-10 w-10 rounded-full"
-              size="icon"
-              variant="outline"
-            >
-              <SiX className="h-[18px]! w-[18px]!" />
-            </Button>
-            <Button
-              className="h-10 w-10 rounded-full"
-              size="icon"
-              variant="outline"
-            >
-              <SiFigma className="h-[18px]! w-[18px]!" />
-            </Button>
-            <Button
-              className="h-10 w-10 rounded-full"
-              size="icon"
-              variant="outline"
-            >
-              <SiTwitch className="h-[18px]! w-[18px]!" />
+              <SiGoogle className="h-[18px]! w-[18px]!" />
             </Button>
           </div>
 
