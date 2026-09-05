@@ -6,16 +6,13 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email("Digite um e-mail válido"),
 });
 
-type ForgotPasswordProps = {
-  onBack: () => void;
-};
-
-const ForgotPassword = ({ onBack }: ForgotPasswordProps) => {
+const ForgotPassword = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -78,16 +75,15 @@ const ForgotPassword = ({ onBack }: ForgotPasswordProps) => {
                 </Field>
               )}
             />
-            <Button className="mt-4 w-full" type="submit">
+            <Button className="mt-4 w-full p-5" type="submit">
               Enviar link de recuperação
             </Button>
-            <button
-              type="button"
+            <Link
+              to="/login"
               className="mt-5 block w-full text-center text-sm text-muted-foreground underline cursor-pointer"
-              onClick={onBack}
             >
               Voltar para o login
-            </button>
+            </Link>
           </form>
           
         </div>
