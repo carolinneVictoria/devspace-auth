@@ -11,18 +11,16 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
+  email: z.string().email("Digite um e-mail válido"),
+  password: z
+    .string()
+    .min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
-type LoginProps = {
-  onCreateAccount: () => void;
-  onForgotPassword: () => void;
-};
-
-const Login = ({ onCreateAccount, onForgotPassword }: LoginProps) => {
+const Login = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -126,27 +124,23 @@ const Login = ({ onCreateAccount, onForgotPassword }: LoginProps) => {
                 </Field>
               )}
             />
-            <Button className="mt-4 w-full" type="submit">
+            <Button className="mt-4 w-full p-5" type="submit">
               Entrar
             </Button>
           </form>
 
           <div className="mt-5 space-y-5">
-            <a
+            <Link
               className="block text-center text-muted-foreground text-sm underline cursor-pointer"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onForgotPassword();
-              }}
+              to="/forgot-password"
             >
               Esqueceu sua senha?
-            </a>
+            </Link>
             <p className="text-center text-sm">
               Ainda não tem uma conta?
-              <button className="ml-1 text-muted-foreground underline cursor-pointer" onClick={onCreateAccount}>
+              <Link className="ml-1 text-muted-foreground underline cursor-pointer" to="/signin">
                 Criar uma conta
-              </button>
+              </Link>
             </p>
           </div>
         </div>
