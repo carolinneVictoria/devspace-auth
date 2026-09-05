@@ -14,10 +14,15 @@ import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
-const Login = () => {
+type LoginProps = {
+  onCreateAccount: () => void;
+  onForgotPassword: () => void;
+};
+
+const Login = ({ onCreateAccount, onForgotPassword }: LoginProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -59,7 +64,7 @@ const Login = () => {
         </div>
 
         <div className="m-auto flex w-full max-w-xs flex-col items-center">
-          <p className="mt-4 font-medium text-xl">Log in to Shadcn UI Blocks</p>
+          <p className="mt-4 font-medium text-xl">Faça login na sua conta</p>
 
           <div className="mt-8 flex items-center gap-3">
             <Button
@@ -109,11 +114,11 @@ const Login = () => {
               name="password"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel>Password</FieldLabel>
+                  <FieldLabel>Senha</FieldLabel>
                   <Input
                     aria-invalid={fieldState.invalid}
                     className="w-full"
-                    placeholder="Password"
+                    placeholder="Senha"
                     type="password"
                     {...field}
                   />
@@ -122,22 +127,26 @@ const Login = () => {
               )}
             />
             <Button className="mt-4 w-full" type="submit">
-              Continue with Email
+              Entrar
             </Button>
           </form>
 
           <div className="mt-5 space-y-5">
             <a
-              className="block text-center text-muted-foreground text-sm underline"
+              className="block text-center text-muted-foreground text-sm underline cursor-pointer"
               href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onForgotPassword();
+              }}
             >
-              Forgot your password?
+              Esqueceu sua senha?
             </a>
             <p className="text-center text-sm">
-              Don&apos;t have an account?
-              <a className="ml-1 text-muted-foreground underline" href="#">
-                Create account
-              </a>
+              Ainda não tem uma conta?
+              <button className="ml-1 text-muted-foreground underline cursor-pointer" onClick={onCreateAccount}>
+                Criar uma conta
+              </button>
             </p>
           </div>
         </div>
