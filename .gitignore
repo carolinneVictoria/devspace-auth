@@ -1,0 +1,9 @@
+node_modules
+.devin
+.cursor
+.claude
+.agents
+node_modules/
+dist/
+.env
+.gitattributes
