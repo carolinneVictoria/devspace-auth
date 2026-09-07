@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -22,6 +22,9 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -30,9 +33,26 @@ const Login = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    toast.success("Dados de login enviados!");
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch("http://localhost:3333/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("Login realizado com sucesso!");
+        navigate("/dashboard");
+      } else {
+        toast.error(result.error || "Erro ao fazer login. Tente novamente.");
+      }
+    } catch (error) {
+      toast.error("Erro ao fazer login. Erro no servidor. Tente novamente.");
+    }
   };
 
   const onInvalid = () => {
