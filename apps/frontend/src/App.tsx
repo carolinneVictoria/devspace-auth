@@ -3,6 +3,7 @@ import Login from "./pages/auth/Login";
 import Signin from "./pages/auth/Signin";
 import ForgotPassword from "./pages/auth/forgot-password";
 import { Toaster } from "sonner";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<Navigate to="/login" replace/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   )
