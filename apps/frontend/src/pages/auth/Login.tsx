@@ -5,6 +5,8 @@ import {
   SiGithub,
   SiGoogle,
 } from "react-icons/si";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -22,7 +24,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,6 +47,7 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login realizado com sucesso!");
         navigate("/dashboard");
       } else {
@@ -139,13 +142,26 @@ const Login = () => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Senha</FieldLabel>
-                  <Input
-                    aria-invalid={fieldState.invalid}
-                    className="w-full"
-                    placeholder="Senha"
-                    type="password"
-                    {...field}
-                  />
+                  <div className="relative">
+                    <Input
+                      aria-invalid={fieldState.invalid}
+                      className="w-full pr-10"
+                      placeholder="Senha"
+                      type={showPassword ? "text" : "password"}
+                      {...field}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
+                    </button>
+                  </div>
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
