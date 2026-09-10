@@ -1,4 +1,4 @@
-# DevSpace Auth
+# 🤖 DevSpace Auth
 
 Aplicação de autenticação (registro/login) composta por um backend HTTP em Node.js e um frontend em React, usando PostgreSQL via Prisma ORM.
 
